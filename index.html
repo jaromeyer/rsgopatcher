@@ -7,23 +7,39 @@
 <body>
     <div class="w3-container w3-teal">
         <h1>RSGO Patcher</h1>
-        <h4>designed for the Umma85</h4>
+        <p>designed for the Umma85</p>
     </div>
     <div class="w3-container">
         <p>
-            <input type="file" id="input">
-            <label for="angle">GoPro uptilt:</label>
-            <input type="number" id="angle" name="angle" value=0>
+            <div class="w3-container w3-cell">
+                <input class="w3cell" type="file" id="input">
+            </div>
+            <div class="w3-container w3-cell">
+                <form>
+                    <label for="angle">GoPro uptilt:</label>
+                    <input type="number" id="angle" name="angle" value=0>
+                </form>
+            </div>
         </p>
         <p>
-            <button id="patchBtn" onclick="patch()">Patch</button>
-            <a id="downloadBtn">Download patched file</a>
+            <div class="w3-container w3-cell">
+                <button id="patchBtn" onclick="patch()">Patch</button>
+            </div>
+            <div class="w3-container w3-cell" style="width:100%">
+                <div class="w3-light-grey">
+                    <div id="progBar" class="w3-container w3-teal" style="height:24px;width:1%"></div>
+                </div>
+                <a id="status">Ready</a>
+            </div>
+            <div class="w3-container w3-center">
+                <a id="downloadBtn">Download patched file</a>
+            </div>
         </p>
     </div>
     <div class="w3-container w3-teal">
         <p>Copyright &copy; 2020 Jaro Meyer</p>
     </div>
 </body>
-<script src="script.js"></script>
+<script src="main.js"></script>
 
 </html>
