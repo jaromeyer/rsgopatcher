@@ -28,9 +28,9 @@ function patch() {
                     var y = toInt16Bytes(chunk[index + 2], chunk[index + 3]); // left/right
                     var z = toInt16Bytes(chunk[index + 4], chunk[index + 5]); // down/up
                     // calculate new values
-                    var xNew = Math.round(x * Math.sin(angle) + y * Math.cos(angle));
+                    var xNew = Math.round(y * Math.cos(angle) - x * Math.sin(angle));
                     var yNew = z; // correct
-                    var zNew = Math.round(x * Math.cos(angle) - y * Math.sin(angle));
+                    var zNew = Math.round(x * Math.cos(angle) + y * Math.sin(angle));
                     // save the new values
                     chunk[index] = xNew >> 8;
                     chunk[index + 1] = xNew;
