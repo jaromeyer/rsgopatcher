@@ -28,8 +28,9 @@ function patch() {
     patchButton.disabled = true;
 
     var angle = document.getElementById("angle").value * Math.PI / 180;
+    var mounting = document.getElementById("mounting").value;
     var patcher = new Worker('patcher.js');
-    patcher.postMessage([file, angle]);
+    patcher.postMessage([file, angle, mounting]);
 
     patcher.onmessage = function (e) {
         if (e.data instanceof Blob) {
