@@ -3,12 +3,12 @@ var chunks = [];
 var reader = new FileReader();
 var file;
 var angle;
-var mounting;
+var orientation;
 
 onmessage = function (e) {
     file = e.data[0];
     angle = e.data[1];
-    mounting = e.data[2];
+    orientation = e.data[2];
     readChunk(0);
 }
 
@@ -30,16 +30,21 @@ function patch() {
                     var y = toInt16Bytes(chunk[index + 2], chunk[index + 3]); // left/right
                     var z = toInt16Bytes(chunk[index + 4], chunk[index + 5]); // down/up
 
-                    if (mounting == "twisted") {
+                    if (orientation == "umma") {
                         // twisted cable
                         var xNew = Math.round(y * Math.cos(angle) - x * Math.sin(angle));
                         var yNew = z;
                         var zNew = Math.round(x * Math.cos(angle) + y * Math.sin(angle));
-                    } else {
+                    } else if (orientation == "flat") {
                         // straight cable
                         var xNew = Math.round(x * Math.sin(angle) - z * Math.cos(angle));
                         var yNew = y;
                         var zNew = Math.round(x * Math.cos(angle) + z * Math.sin(angle));
+                    } else if (orientation == "vertical") {
+                        // vertical mainboard
+                        var xNew = -x;
+                        var yNew = -z;
+                        var zNew = -y;
                     }
                     // save the new values
                     chunk[index] = xNew >> 8;

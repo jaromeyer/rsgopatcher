@@ -8,8 +8,9 @@
     <div class="w3-container w3-blue">
         <h1>RSGO Patcher</h1>
         <p>ReelSteady Go's "Lock Horizon" feature doesn't function properly with the <a
-                href="https://www.youtube.com/watch?v=NtwhlTpe-Yw" target="_blank">Umma85</a>, and similar setups, which
-            have the mainboard mounted horizontally. Therefore I have created this tool, which allows you to patch your
+                href="https://www.youtube.com/watch?v=NtwhlTpe-Yw" target="_blank">Umma85</a> and similar setups where
+            the mainboard is mounted offset from the original orientation. Therefore I have created this tool, which
+            allows you to patch your
             footage before feeding it into RSGO. Join the <a href="https://www.facebook.com/groups/NAKEDCINEWHOOP"
                 target="_blank">NAKED Cinewhoop
                 Community</a> for awesome builds and more information about decasing GoPros.</p>
@@ -21,37 +22,38 @@
     </div>
     <div class="w3-container">
         <p>
-            <div class="w3-container w3-cell">
-                <input class="w3cell" type="file" id="input">
-            </div>
-            <div class="w3-container w3-cell">
-                <form>
-                    <label for="angle">GoPro uptilt:</label>
-                    <input type="number" id="angle" name="angle" value=13>
-                </form>
-            </div>
-            <div class="w3-container w3-cell">
-                <label for="mounting">Mounting style:</label>
+        <div class="w3-container w3-cell">
+            <input class="w3cell" type="file" id="input">
+        </div>
+        <div class="w3-container w3-cell">
+            <form>
+                <label for="angle">GoPro uptilt:</label>
+                <input type="number" id="angle" name="angle" value=13>
+            </form>
+        </div>
+        <div class="w3-container w3-cell">
+            <label for="mounting">Orientation:</label>
 
-                <select id="mounting">
-                  <option value="twisted">twisted cable (e.g. Umma85)</option>
-                  <option value="straight">straight cable</option>
-                </select> 
-            </div>
+            <select id="orientation">
+                <option value="umma">Umma85/Umma95</option>
+                <option value="flat">flat</option>
+                <option value="vertical">vertical (without uptilt atm)</option>
+            </select>
+        </div>
         </p>
         <p>
-            <div class="w3-container w3-cell">
-                <button id="patchBtn" onclick="patch()">Patch</button>
+        <div class="w3-container w3-cell">
+            <button id="patchBtn" onclick="patch()">Patch</button>
+        </div>
+        <div class="w3-container w3-cell" style="width:100%">
+            <div class="w3-light-grey">
+                <div id="progBar" class="w3-container w3-blue" style="height:24px;width:1%"></div>
             </div>
-            <div class="w3-container w3-cell" style="width:100%">
-                <div class="w3-light-grey">
-                    <div id="progBar" class="w3-container w3-blue" style="height:24px;width:1%"></div>
-                </div>
-                <a id="status">Ready</a>
-            </div>
-            <div class="w3-container w3-center">
-                <a id="downloadBtn">Download patched file</a>
-            </div>
+            <a id="status">Ready</a>
+        </div>
+        <div class="w3-container w3-center">
+            <a id="downloadBtn">Download patched file</a>
+        </div>
         </p>
     </div>
     <div class="w3-container w3-blue">
