@@ -31,20 +31,17 @@ function patch() {
                     var z = toInt16Bytes(chunk[index + 4], chunk[index + 5]); // down/up
 
                     if (orientation == "umma") {
-                        // twisted cable
                         var xNew = Math.round(y * Math.cos(angle) - x * Math.sin(angle));
                         var yNew = z;
                         var zNew = Math.round(x * Math.cos(angle) + y * Math.sin(angle));
                     } else if (orientation == "flat") {
-                        // straight cable
-                        var xNew = Math.round(x * Math.sin(angle) - z * Math.cos(angle));
+                        var xNew = Math.round(-z * Math.cos(angle) + x * Math.sin(angle));
                         var yNew = y;
                         var zNew = Math.round(x * Math.cos(angle) + z * Math.sin(angle));
                     } else if (orientation == "vertical") {
-                        // vertical mainboard
-                        var xNew = -x;
+                        var xNew = Math.round(-x * Math.cos(angle) - y * Math.sin(angle));
                         var yNew = -z;
-                        var zNew = -y;
+                        var zNew = Math.round(-y * Math.cos(angle) + x * Math.sin(angle));
                     }
                     // save the new values
                     chunk[index] = xNew >> 8;
