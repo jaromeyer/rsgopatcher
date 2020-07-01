@@ -59,7 +59,7 @@ function patch() {
     postMessage(output);
 }
 
-// convert two chunk to a big-endian signed integer
+// convert two bytes (big-endian) into a 16-bit signed integer
 function toInt16Bytes(byteA, byteB) {
     var sign = byteA & (1 << 7);
     var result = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
