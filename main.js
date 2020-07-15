@@ -26,6 +26,7 @@ function handleFiles() {
 function patch() {
     console.log("Starting patching process");
     patchButton.disabled = true;
+    ga('send', 'event', 'Patcher', 'start');
 
     var angle = document.getElementById("angle").value * Math.PI / 180;
     var orientation = document.getElementById("orientation").value;
