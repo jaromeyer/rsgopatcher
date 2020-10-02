@@ -21,35 +21,37 @@ function patch() {
             if (chunk[i] == 0x41 && chunk[i + 1] == 0x43 && chunk[i + 2] == 0x43 && chunk[i + 3] == 0x4c && chunk[i + 4] == 0x73) {
                 // update progress
                 postMessage(["Patching ", (i + (k * chunkSize)) / file.size * 100]);
-                var sampleCount = chunk[i + 6] << 8 | chunk[i + 7]
-                // loop over samples of a batch
-                for (var j = 0; j < sampleCount; j++) {
-                    var index = i + j * 6 + 8
-                    // read original values
-                    var x = toInt16Bytes(chunk[index], chunk[index + 1]); // front/back
-                    var y = toInt16Bytes(chunk[index + 2], chunk[index + 3]); // left/right
-                    var z = toInt16Bytes(chunk[index + 4], chunk[index + 5]); // down/up
+                var sampleCount = chunk[i + 6] << 8 | chunk[i + 7];
+                if (sampleCount < 200) {
+                    // loop over samples of a batch
+                    for (var j = 0; j < sampleCount; j++) {
+                        var index = i + j * 6 + 8
+                        // read original values
+                        var x = toInt16Bytes(chunk[index], chunk[index + 1]); // front/back
+                        var y = toInt16Bytes(chunk[index + 2], chunk[index + 3]); // left/right
+                        var z = toInt16Bytes(chunk[index + 4], chunk[index + 5]); // down/up
 
-                    if (orientation == "umma") {
-                        var xNew = Math.round(y * Math.cos(angle) - x * Math.sin(angle));
-                        var yNew = z;
-                        var zNew = Math.round(x * Math.cos(angle) + y * Math.sin(angle));
-                    } else if (orientation == "flat") {
-                        var xNew = Math.round(-z * Math.cos(angle) + x * Math.sin(angle));
-                        var yNew = y;
-                        var zNew = Math.round(x * Math.cos(angle) + z * Math.sin(angle));
-                    } else if (orientation == "vertical") {
-                        var xNew = Math.round(-x * Math.cos(angle) - y * Math.sin(angle));
-                        var yNew = -z;
-                        var zNew = Math.round(-y * Math.cos(angle) + x * Math.sin(angle));
+                        if (orientation == "umma") {
+                            var xNew = Math.round(y * Math.cos(angle) - x * Math.sin(angle));
+                            var yNew = z;
+                            var zNew = Math.round(x * Math.cos(angle) + y * Math.sin(angle));
+                        } else if (orientation == "flat") {
+                            var xNew = Math.round(-z * Math.cos(angle) + x * Math.sin(angle));
+                            var yNew = y;
+                            var zNew = Math.round(x * Math.cos(angle) + z * Math.sin(angle));
+                        } else if (orientation == "vertical") {
+                            var xNew = Math.round(-x * Math.cos(angle) - y * Math.sin(angle));
+                            var yNew = -z;
+                            var zNew = Math.round(-y * Math.cos(angle) + x * Math.sin(angle));
+                        }
+                        // save the new values
+                        chunk[index] = xNew >> 8;
+                        chunk[index + 1] = xNew;
+                        chunk[index + 2] = yNew >> 8;
+                        chunk[index + 3] = yNew;
+                        chunk[index + 4] = zNew >> 8;
+                        chunk[index + 5] = zNew;
                     }
-                    // save the new values
-                    chunk[index] = xNew >> 8;
-                    chunk[index + 1] = xNew;
-                    chunk[index + 2] = yNew >> 8;
-                    chunk[index + 3] = yNew;
-                    chunk[index + 4] = zNew >> 8;
-                    chunk[index + 5] = zNew;
                 }
             }
         }
