@@ -22,7 +22,7 @@ function patch() {
                 // update progress
                 postMessage(["Patching ", (i + (k * chunkSize)) / file.size * 100]);
                 var sampleCount = chunk[i + 6] << 8 | chunk[i + 7];
-                if (sampleCount < 200) {
+                if (sampleCount < 220) {
                     // loop over samples of a batch
                     for (var j = 0; j < sampleCount; j++) {
                         var index = i + j * 6 + 8
